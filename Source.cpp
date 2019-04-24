@@ -28,22 +28,34 @@ int main(int argc, char* argv[])
 
 	cout << setfill('0') << setw(8) << hex << color << endl;
 
-	//Screen screen;
+	Screen screen;
 
-	//if (screen.Init() == false)
-	//{
-	//	cout << "Error initializing SDL.";
-	//}
+	if (screen.Init() == false)
+	{
+		cout << "Error initializing SDL.";
+	}
 
-	//while (true)
-	//{
-	//	//Update particles
-	//	//draw particles
-	//	//check for messages
+	while (true)
+	{
+		//Update particles
+		//draw particles
+		//check for messages
 
-	//	if (screen.ProcessEvent() == false)
-	//		break;
-	//}
+		for (int y = 0; y < Screen::SCREEN_HEIGHT; ++y)
+		{
+			for (int x = 0; x < Screen::SCREEN_WIDTH; ++x)
+			{
+				screen.SetPixel(x, y, 255, 0, 0);
+			}
+		}
+
+		screen.SetPixel(400, 300, 0, 0, 255);
+
+		screen.Update();
+
+		if (screen.ProcessEvent() == false)
+			break;
+	}
 
 	return 0;
 }

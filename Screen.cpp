@@ -42,7 +42,7 @@ namespace cj
 
 		//memset(buffer, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
 
-		_buffer[3600] = 0xFFFFFFFF;
+		//_buffer[3600] = 0xFFFFFFFF;
 
 		//Black: 0xFF000000
 		//Red:   0x00FF0000
@@ -50,11 +50,11 @@ namespace cj
 		//Blue:  0x000000FF
 		//Yellow: 0x00FFFF00
 
-		for (int i = 0; i < SCREEN_WIDTH*SCREEN_HEIGHT; ++i)
+	/*	for (int i = 0; i < SCREEN_WIDTH*SCREEN_HEIGHT; ++i)
 		{
 			_buffer[i] = 0x00FFFF00;
 		}
-
+*/
 		return true;
 	}
 
@@ -77,6 +77,20 @@ namespace cj
 		SDL_DestroyTexture(_texture);
 		SDL_DestroyWindow(_window);
 		SDL_Quit();
+	}
+
+	void Screen::SetPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue)
+	{
+		Uint32 color = 0;
+		color += 0xFF;
+		color <<= 8;
+		color += red;
+		color <<= 8;
+		color += green;
+		color <<= 8;
+		color += blue;
+
+		_buffer[(y*SCREEN_WIDTH) + y] = color;
 	}
 
 	void Screen::Update()

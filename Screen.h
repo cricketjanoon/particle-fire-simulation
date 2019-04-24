@@ -20,6 +20,7 @@ namespace cj
 		bool Init();
 		bool ProcessEvent();
 		void Close();
+		void SetPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue);
 		void Update();
 		~Screen();
 	};
