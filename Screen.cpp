@@ -1,6 +1,6 @@
 #include "Screen.h"
 
-namespace cj
+namespace CJ
 {
 	Screen::Screen() : _window(NULL), _renderer(NULL), _texture(NULL), _buffer(NULL)
 	{
@@ -40,7 +40,7 @@ namespace cj
 
 		_buffer = new Uint32[SCREEN_WIDTH * SCREEN_HEIGHT];
 
-		//memset(buffer, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
+		memset(_buffer, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
 
 		//_buffer[3600] = 0xFFFFFFFF;
 
@@ -81,6 +81,9 @@ namespace cj
 
 	void Screen::SetPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue)
 	{
+		if (x<0 || x>SCREEN_WIDTH || y<0 || y> SCREEN_HEIGHT)
+			return;
+
 		Uint32 color = 0;
 		color += 0xFF;
 		color <<= 8;

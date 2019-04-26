@@ -1,34 +1,20 @@
 #include <iostream>
 #include <stdio.h>
+#include <stdlib.h>
 #include <iomanip>
 #include <SDL.h>
 #include <math.h>
+#include <stdlib.h>
 #include "Screen.h"
+#include <time.h>
+#include "Swarm.h"
 
 using namespace std;
-using namespace cj;
+using namespace CJ;
 
 int main(int argc, char* argv[])
 {
-	//0xFF123456
-
-	unsigned char alpha = 0xFF;
-	unsigned char red = 0x12;
-	unsigned char green = 0x34;
-	unsigned char blue = 0x56;
-
-	unsigned int color = 0;
-
-	color += alpha;
-	color <<= 8;
-	color += red;
-	color <<= 8;
-	color += green;
-	color <<= 8;
-	color += blue;
-
-	cout << setfill('0') << setw(8) << hex << color << endl;
-
+	Swarm swarm;
 	Screen screen;
 
 	if (screen.Init() == false)
@@ -36,13 +22,11 @@ int main(int argc, char* argv[])
 		cout << "Error initializing SDL.";
 	}
 
-	int max = 0;
-
 	while (true)
 	{
-		//Update particles
-		//draw particles
-		//check for messages
+		//	//Update particles
+		//	//draw particles
+		//	//check for messages
 
 		int elapsed = SDL_GetTicks();
 		unsigned char green = (1 + sin(elapsed*0.0001)) * 128;
@@ -57,6 +41,17 @@ int main(int argc, char* argv[])
 			{
 				screen.SetPixel(x, y, red, green, blue);
 			}
+		}
+
+		const Particle* const particles = swarm.GetParticles();
+		for (int i = 0; i < Swarm::NPARTICLES; i++)
+		{
+			Particle particle = particles[i];
+
+			int x = (particle.x + 1) * Screen::SCREEN_WIDTH / 2;
+			int y = (particle.y + 1) * Screen::SCREEN_HEIGHT / 2;
+
+			screen.SetPixel(x, y, 255, 255, 255);
 		}
 
 		screen.Update();

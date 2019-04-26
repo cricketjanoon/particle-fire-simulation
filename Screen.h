@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-namespace cj
+namespace CJ
 {
 #pragma once
 	class Screen
