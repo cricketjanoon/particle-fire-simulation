@@ -90,7 +90,7 @@ namespace cj
 		color <<= 8;
 		color += blue;
 
-		_buffer[(y*SCREEN_WIDTH) + y] = color;
+		_buffer[(y*SCREEN_WIDTH) + x] = color;
 	}
 
 	void Screen::Update()
