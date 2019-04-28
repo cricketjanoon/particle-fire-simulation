@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #pragma once
 namespace CJ
 {
@@ -5,9 +7,11 @@ namespace CJ
 	{
 		double x;
 		double y;
+		double x_speed;
+		double y_speed;
 
-	public:
 		Particle();
+		void Update();
 		~Particle();
 	};
 }

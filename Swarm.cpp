@@ -11,4 +11,11 @@ namespace CJ
 	{
 		delete[] _particles;
 	}
+	void Swarm::Update()
+	{
+		for (int i = 0; i < Swarm::NPARTICLES; i++)
+		{
+			_particles[i].Update();
+		}
+	}
 }

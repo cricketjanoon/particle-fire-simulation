@@ -8,8 +8,9 @@ namespace CJ
 		Particle*  _particles;
 
 	public:
-		const static int NPARTICLES = 5000;
+		const static int NPARTICLES = 2000;
 		Swarm();
+		void Update();
 		~Swarm();
 		const Particle* const GetParticles() { return _particles; };
 	};

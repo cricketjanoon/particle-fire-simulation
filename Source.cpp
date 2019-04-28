@@ -29,19 +29,23 @@ int main(int argc, char* argv[])
 		//	//check for messages
 
 		int elapsed = SDL_GetTicks();
+
+		screen.Clear();
+		swarm.Update();
+
 		unsigned char green = (1 + sin(elapsed*0.0001)) * 128;
 		unsigned char red = (1 + cos(elapsed*0.0002)) * 128;
 		unsigned char blue = (1 + sin(elapsed*0.0003)) * 128;
 
 		//cout << green << endl;
 
-		for (int y = 0; y < Screen::SCREEN_HEIGHT; ++y)
+		/*for (int y = 0; y < Screen::SCREEN_HEIGHT; ++y)
 		{
 			for (int x = 0; x < Screen::SCREEN_WIDTH; ++x)
 			{
 				screen.SetPixel(x, y, red, green, blue);
 			}
-		}
+		}*/
 
 		const Particle* const particles = swarm.GetParticles();
 		for (int i = 0; i < Swarm::NPARTICLES; i++)
