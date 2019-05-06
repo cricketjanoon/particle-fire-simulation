@@ -2,7 +2,7 @@
 
 namespace CJ
 {
-	Swarm::Swarm()
+	Swarm::Swarm() : lastTime(0)
 	{
 		_particles = new Particle[NPARTICLES];
 	}
@@ -11,11 +11,17 @@ namespace CJ
 	{
 		delete[] _particles;
 	}
-	void Swarm::Update()
+	void Swarm::Update(int elapsedTime)
 	{
+		int interval = elapsedTime - lastTime;
+
 		for (int i = 0; i < Swarm::NPARTICLES; i++)
 		{
-			_particles[i].Update();
+			_particles[i].Update(interval);
 		}
+
+		lastTime = elapsedTime;
+
+
 	}
 }

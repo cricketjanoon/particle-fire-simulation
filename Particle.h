@@ -12,7 +12,7 @@ namespace CJ
 		double direction;
 
 		Particle();
-		void Update();
+		void Update(int interval);
 		~Particle();
 	};
 }
