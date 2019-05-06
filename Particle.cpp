@@ -1,27 +1,24 @@
 #include "Particle.h"
 #include "Screen.h"
+#include <math.h>
 #include <stdlib.h>
 
 namespace CJ
 {
-	Particle::Particle()
+	Particle::Particle() : x(0), y(0)
 	{
-		x = (2.0 * rand() / RAND_MAX) - 1;
-		y = (2.0 *rand() / RAND_MAX) - 1;
-
-		x_speed = 0.001 * (((2.0 * rand()) / RAND_MAX) - 1);
-		y_speed = 0.001 * (((2.0 * rand()) / RAND_MAX) - 1);
+		direction = (2 * M_PI *rand()) / RAND_MAX;
+		speed = (0.01 * rand()) / RAND_MAX;
 	}
 
 	void Particle::Update()
 	{
-		x += x_speed;
-		y += y_speed;
+		double xspeed = speed * cos(direction);
+		double yspeed = speed * sin(direction);
 
-		if (x < -1 || x > 1)
-			x_speed = -x_speed;
-		if (y < -1 || y>1)
-			y_speed = -y_speed;
+		x += xspeed;
+		y += yspeed;
+
 	}
 
 	Particle::~Particle()

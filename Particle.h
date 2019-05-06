@@ -7,8 +7,9 @@ namespace CJ
 	{
 		double x;
 		double y;
-		double x_speed;
-		double y_speed;
+
+		double speed;
+		double direction;
 
 		Particle();
 		void Update();
