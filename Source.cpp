@@ -30,22 +30,24 @@ int main(int argc, char* argv[])
 
 		int elapsed = SDL_GetTicks();
 
-		screen.Clear();
+		//screen.Clear();
+
+
+
 		swarm.Update(elapsed);
 
 		unsigned char green = (1 + sin(elapsed*0.0001)) * 128;
 		unsigned char red = (1 + cos(elapsed*0.0002)) * 128;
-		unsigned char blue = (1 + sin(elapsed*0.0003)) * 128;
+		unsigned char blue = (1 + sin(elapsed*0.0003)) * 128;	
 
-		//cout << green << endl;
-
-		/*for (int y = 0; y < Screen::SCREEN_HEIGHT; ++y)
-		{
-			for (int x = 0; x < Screen::SCREEN_WIDTH; ++x)
-			{
-				screen.SetPixel(x, y, red, green, blue);
-			}
-		}*/
+		//changing background color smoothly
+		//for (int y = 0; y < Screen::SCREEN_HEIGHT; ++y)
+		//{
+		//	for (int x = 0; x < Screen::SCREEN_WIDTH; ++x)
+		//	{
+		//		screen.SetPixel(x, y, red, green, blue);
+		//	}
+		//}
 
 		const Particle* const particles = swarm.GetParticles();
 		for (int i = 0; i < Swarm::NPARTICLES; i++)
@@ -55,14 +57,16 @@ int main(int argc, char* argv[])
 			int x = (particle.x + 1) * Screen::SCREEN_WIDTH / 2;
 			int y = (particle.y * Screen::SCREEN_WIDTH / 2) + (Screen::SCREEN_HEIGHT/2);
 
-			screen.SetPixel(x, y, 255, 255, 255);
+			screen.SetPixel(x, y, red, green, blue);
 		}
 
+		screen.BoxBlur();
 		screen.Update();
 
 		if (screen.ProcessEvent() == false)
 			break;
 	}
 
+	screen.Close();
 	return 0;
 }

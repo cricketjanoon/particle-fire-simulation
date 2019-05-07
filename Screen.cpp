@@ -39,8 +39,10 @@ namespace CJ
 		}
 
 		_buffer = new Uint32[SCREEN_WIDTH * SCREEN_HEIGHT];
+		_buffer1 = new Uint32[SCREEN_WIDTH * SCREEN_HEIGHT];
 
-		memset(_buffer, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
+		memset(_buffer,0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
+		memset(_buffer1, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
 
 		//_buffer[3600] = 0xFFFFFFFF;
 
@@ -73,6 +75,9 @@ namespace CJ
 
 	void Screen::Close()
 	{
+		delete[] _buffer;
+		delete[] _buffer1;
+
 		SDL_DestroyRenderer(_renderer);
 		SDL_DestroyTexture(_texture);
 		SDL_DestroyWindow(_window);
@@ -85,13 +90,15 @@ namespace CJ
 			return;
 
 		Uint32 color = 0;
-		color += 0xFF;
-		color <<= 8;
+
+
 		color += red;
 		color <<= 8;
 		color += green;
 		color <<= 8;
 		color += blue;
+		color <<= 8;
+		color += 0x00;
 
 		_buffer[(y*SCREEN_WIDTH) + x] = color;
 	}
@@ -107,9 +114,61 @@ namespace CJ
 	void Screen::Clear()
 	{
 		memset(_buffer, 0, SCREEN_WIDTH*SCREEN_HEIGHT * sizeof(Uint32));
+		memset(_buffer1, 0, SCREEN_WIDTH*SCREEN_HEIGHT * sizeof(Uint32));
 	}
 
-	Screen::~Screen()
+	void Screen::BoxBlur() 
 	{
+		//swap the buffers
+		Uint32* temp = _buffer;
+		_buffer = _buffer1;
+		_buffer1 = temp;
+
+		for (int y = 0; y < SCREEN_HEIGHT; y++)
+		{
+			for (int x = 0; x < SCREEN_WIDTH; x++)
+			{
+				/* 0 0 0
+				   0 1 0
+				   0 0 0
+				*/
+				
+				int redTotal = 0;
+				int greenTotal = 0;
+				int blueTotal = 0;
+
+				for (int row = -1; row <=1; row++)
+				{
+					for (int col = -1; col <= 1; col++)
+					{
+						int curX = x + col;
+						int curY = y + row;
+
+						if (curX >= 0 && curX < SCREEN_WIDTH && curY >= 0 && curY < SCREEN_HEIGHT)
+						{
+							Uint32 color = _buffer1[curY * SCREEN_WIDTH + curX];
+							
+							Uint8 red = color >> 8;
+							Uint8 green = color >> 16;
+							Uint8 blue = color >> 24;
+
+							redTotal += red;
+							greenTotal += green;
+							blueTotal += blue;
+
+						}
+					}
+				}
+
+				Uint8 red = redTotal / 9;
+				Uint8 green = greenTotal / 9;
+				Uint8 blue = blueTotal / 9;
+
+				SetPixel(x,y,red,green,blue);
+
+			}
+		}
+
+
 	}
 }

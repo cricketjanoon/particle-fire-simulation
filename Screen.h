@@ -12,6 +12,7 @@ namespace CJ
 		SDL_Renderer* _renderer;
 		SDL_Texture* _texture;
 		Uint32* _buffer;
+		Uint32* _buffer1;
 
 	public:
 		const static int SCREEN_WIDTH = 800;
@@ -23,6 +24,6 @@ namespace CJ
 		void SetPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue);
 		void Update();
 		void Clear();
-		~Screen();
+		void BoxBlur();
 	};
 }
