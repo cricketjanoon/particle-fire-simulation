@@ -13,6 +13,7 @@ namespace CJ
 
 		Particle();
 		void Update(int interval);
-		~Particle();
+		void Init();
+
 	};
 }

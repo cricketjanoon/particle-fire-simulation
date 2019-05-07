@@ -22,6 +22,5 @@ namespace CJ
 
 		lastTime = elapsedTime;
 
-
 	}
 }
